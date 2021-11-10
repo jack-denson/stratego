@@ -1,12 +1,16 @@
 
 class Piece:
 
-    def __init__(self, type):
+    def __init__(self, type, player):
         assert(type in {'1', '2', '3', '4', '5', '6', '7', '8', '9', 'S', 'F', 'B'})
         self._type = type
+        self._player = player
 
     def getType(self):
         return self._type
+
+    def getPlayer(self):
+        return self._player
 
     def getName(self):
         names = {"1": "Marshall",
