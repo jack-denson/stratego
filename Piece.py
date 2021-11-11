@@ -28,10 +28,10 @@ class Piece:
         return names[self._type]
 
     def canMove(self):
-        return self._type != "Bomb" and self._type != "Flag"
+        return self._type != "B" and self._type != "F"
 
     def beats(self, other):
-        otherType = other.type
+        otherType = other.getType()
         if otherType == 'F':
             return True
         if otherType == 'B':
@@ -40,6 +40,10 @@ class Piece:
             return False
         if otherType == "1" and self._type == 'S':
             return True
+        if self._type == 'B':
+            return otherType == '8'
+        if self._type == 'F':
+            return False
         types = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'S']
         # In case that ranks are equal, returns False, because it doesn't beat the opponent
         #  in the game, that means both are removed, which is logic implemented in game, not here
