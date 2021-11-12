@@ -1,4 +1,5 @@
 import Piece
+import random
 
 def startPieces(player):
     #Flat array of all 40 starting pieces, for a given player
@@ -18,3 +19,35 @@ def startPieces(player):
              + lieuts + sarges + miners + scouts + spies + flag
     assert(len(pieces) == 40)
     return pieces
+
+def setupFromString(player, setup):
+    #Parses string like B321FS3209583B... to 4x10 array of pieces
+    configuration = []
+    for r in range(4):
+        row = []
+        for c in range(10):
+            row.append(Piece.Piece(setup[r*10 + c], player))
+        configuration.append(row)
+    return configuration
+
+def wikipediaSetup(player):
+    # Example setup that the wikipedia article for Stratego shows
+    return setupFromString(player, "7B5299189BB79S4585397B48643876BFB5966998")
+
+def validPos(pos):
+    pos = pos.lower()
+    return "abcdefghij".find(pos[0]) != -1 and "0123456789".find(pos[1]) != -1
+
+def toCoords(pos):
+    pos = pos.lower()
+    row = int(pos[1])
+    col = "abcdefghij".index(pos[0])
+    return row, col
+
+def toUserCoord(row, col):
+    return "ABCDEFGHIJ"[col] + str(row)
+
+def randomMove(state):
+    moves = state.getValidMoves()
+    move = random.choice(moves)
+    return move

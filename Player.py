@@ -1,11 +1,13 @@
 import util
 import random
+import Move
 
 class Player:
     pass
 
 class AI(Player):
-    def __init__(self):
+    def __init__(self, name):
+        self._name = name
         pass
 
     def setPieces(self):
@@ -19,25 +21,78 @@ class AI(Player):
     def observeMove(self, oldState, move, newState):
         return
         # Watches opponent move, updates internal state to react to this
+        # Should NOT access opponent's piece ranks
 
-    def chooseMove(self, gameState):
+    def getName(self):
+        return self._name
 
-        return
-        # Chooses a move for the agent
+    def chooseMove(self, state):
+        return util.randomMove(state)
+
+    def isHuman(self):
+        return False
 
 class Human(Player):
-    def __init__(self):
+    def __init__(self, name):
+        self._name = name
         pass
         # Don't need much here, internal state stored in human's brain
 
+    def getName(self):
+        return self._name
+
     def setPieces(self):
-        return
         # Prompts user to set up pieces, or to select preset(e.g. 'random')
+
+        config = input("Input piece configuration(random, wikipedia, or custom as 40-char string): ")
+        if config == "" or config == "random" or config == "rand" or config == "r":
+            pieces = util.startPieces(self)
+            random.shuffle(pieces)
+            return [pieces[0:10], pieces[10:20], pieces[20:30], pieces[30:40]]
+        elif config == "wikipedia" or config == "wiki" or config == "w":
+            return util.wikipediaSetup(self)
+        else:
+            return util.setupFromString(self, config)
 
     def observeMove(self, oldState, move, newState):
         return
-        # Should be a no-op
+        # Should be a no-op, player is observing move themselves
 
     def chooseMove(self, gameState):
-        return
         # Prompts user for a move and waits
+
+        gameState.show()
+
+        validMove = False
+
+        while not validMove:
+            validStart = False
+            while not validStart:
+                startPos = input("Enter coordinates of piece to move: ")
+                validStart = util.validPos(startPos)
+                if startPos.lower() == 'random':
+                    return util.randomMove(gameState)
+                if not validStart:
+                    print("Invalid coordinates")
+
+            startR, startC = util.toCoords(startPos)
+
+            validEnd = False
+            while not validEnd:
+                endPos = input("Enter coordinates of location to move to: ")
+                validEnd = util.validPos(startPos)
+                if not validEnd:
+                    print("Invalid coordinates")
+
+            endR, endC = util.toCoords(endPos)
+
+            move = Move.Move(startR, startC, endR, endC)
+            validMove = gameState.isValid(move)
+
+            if not validMove:
+                print("Move is invalid. Try again")
+
+        return move
+
+    def isHuman(self):
+        return True

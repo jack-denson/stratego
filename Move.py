@@ -1,4 +1,4 @@
-
+import util
 class Move:
 
     def __init__(self, r0, c0, r1, c1):
@@ -13,5 +13,8 @@ class Move:
     def getEnd(self):
         return self._r1, self._c1
 
-    def toStr(self):
-        return ("("+str(self._r0)+", "+str(self._c0)+") -> ("+str(self._r1)+", "+str(self._c1)+")")
+    def toStr(self, coords=False):
+        if coords:
+            return ("("+str(self._r0)+", "+str(self._c0)+") -> ("+str(self._r1)+", "+str(self._c1)+")")
+        else:
+            return util.toUserCoord(self._r0, self._c0) + " -> " + util.toUserCoord(self._r1, self._c1)

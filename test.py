@@ -6,11 +6,14 @@ import Player
 def randomGame():
     state = GameState.GameState()
 
-    for i in range(1000):
-        state.show(False)
+    for i in range(10):
+        if i%2 == 0:
+            state.show(False)
         moves = state.getValidMoves()
         move = random.choice(moves)
-        state = state.nextState(move)[0] # Ignores battle info
+        state, battleInfo = state.nextState(move)
+        if len(battleInfo) > 0:
+            print(battleInfo[0] + " attacks " + battleInfo[1])
         print(move.toStr())
 
 def singlePiece():

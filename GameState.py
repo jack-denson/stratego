@@ -2,7 +2,7 @@ import Player
 import Move
 
 class GameState:
-    def __init__(self, board=None, players=[Player.AI(), Player.AI()], turn=0):
+    def __init__(self, board=None, players=[Player.AI("Blue"), Player.AI("Red")], turn=0):
         self._players = players
         self._turn = turn
 
@@ -29,18 +29,31 @@ class GameState:
         else:
             self._board = board
 
-    def show(self, all=False):
+    def show(self, all=False, color=True):
+
+        print(" ", end="")
+        for letter in " ABCDEFGHIJ":
+            print(" " + letter + " |", end="")
+        print("\n     "+("_"*40))
+        # 0 is blue, 1 is red
+        endcode = '' if not color else '\033[0m'
         for i in range(0, 10):
-            print("|", end="")
+            print("| "+str(i)+" |", end="")
             for j in range(0, 10):
                 if self._board[i][j] is None:
                     print("  ", end="")
                 elif self._board[i][j] == "W":
                     print(" W", end="")
-                elif not all and self._board[i][j].getPlayer() != self._players[self._turn]:
-                    print(" ?", end="")
+                elif self._board[i][j].getPlayer() != self._players[self._turn]:
+                    # Here, drawing opponent(not this turn)'s piece
+                    colorcode = '' if not color else ('\033[31m' if self._turn == 0 else '\033[94m')
+                    if not all:
+                        print(" "+colorcode+"?"+endcode, end="")
+                    else:
+                        print(" " + colorcode + self._board[i][j].getType() + endcode, end="")
                 else:
-                    print(" "+self._board[i][j].getType(), end="")
+                    colorcode = '' if not color else ('\033[94m' if self._turn == 0 else '\033[31m')
+                    print(" " + colorcode + self._board[i][j].getType() + endcode, end="")
                 print(" |", end="")
             print()
 

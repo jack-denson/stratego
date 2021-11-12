@@ -6,8 +6,13 @@ class Piece:
         self._type = type
         self._player = player
 
-    def getType(self):
-        return self._type
+    def getType(self, restrict=None):
+        # Restrict is used to ensure player only accesses their pieces, field should be player's self when this func.
+        #  is called in any AI-specific function, to prevent accidental cheating
+        if restrict is None or self._player == restrict:
+            return self._type
+        else:
+            return None
 
     def getPlayer(self):
         return self._player
@@ -41,7 +46,7 @@ class Piece:
         if otherType == "1" and self._type == 'S':
             return True
         if self._type == 'B':
-            return otherType == '8'
+            return otherType != '8'
         if self._type == 'F':
             return False
         types = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'S']
