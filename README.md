@@ -4,10 +4,19 @@ Implementation by Jack Denson
 Stratego game with AI agent
 Created for CS4100 - Artificial Intelligence final project
 
-To play: `python Game.py`
+To play: `python Stratego.py`
 
-By default, plays one game, human player against random agent. In the future, I will add command line arguments
-to make it easier to play player vs. player, ai vs. ai, multiple games, and to change game settings.
+By default, plays one game, human player against random agent.
+
+The following are all optional command line arguments:
+```
+  -h, --help            show this help message and exit
+  -n NUM_GAMES, --num-games NUM_GAMES
+                        The number of games to play
+  -a, --ai              Whether to play 2 AIs against each other(instead of default play against AI)
+  -s, --spectate        Whether to watch(print out board) during play between AIs
+  -p NAME, --name NAME  Set the name of Player(default 'User')
+```
 
 ## Setup
 

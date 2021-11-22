@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser(description='Play any number of Stratego games 
 parser.add_argument('-n', '--num-games', type=int, nargs=1, default=1, help="The number of games to play")
 parser.add_argument('-a', '--ai', action='store_true', help='Whether to play 2 AIs against each other(instead of default play against AI)')
 parser.add_argument('-s', '--spectate', action='store_true', help='Whether to watch(print out board) during play between AIs')
-parser.add_argument('-p', '--name', default="User", help='Name of Player')
+parser.add_argument('-p', '--name', default="User", help='Set the name of Player(default \'User\')')
 
 
 args = parser.parse_args()
