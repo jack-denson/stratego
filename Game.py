@@ -32,8 +32,9 @@ def playGame(p0, p1, spectate):
                     winner = playerToMove
 
     print("Game Over! " + winner.getName() + " wins!")
+    return winner.getName()
 
-playGame(Player.AI("AI1"), Player.AI("AI2"), True)
+#playGame(Player.AI("AI1"), Player.AI("AI2"), True)
 """
 if i % 2 == 0:
     state.show(False)
