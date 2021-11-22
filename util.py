@@ -49,5 +49,7 @@ def toUserCoord(row, col):
 
 def randomMove(state):
     moves = state.getValidMoves()
+    if len(moves) == 0:
+        return None
     move = random.choice(moves)
     return move

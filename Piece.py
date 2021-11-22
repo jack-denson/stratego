@@ -17,6 +17,9 @@ class Piece:
     def getPlayer(self):
         return self._player
 
+    def copy(self):
+        return Piece(self._type, self._player)
+
     def getName(self):
         names = {"1": "Marshall",
                  "2": "General",

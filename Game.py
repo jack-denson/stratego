@@ -19,19 +19,21 @@ def playGame(p0, p1, spectate):
 
         playerToMove = state.currentPlayer()
         move = playerToMove.chooseMove(state)
+        if move is None:
+            winner = p0 if playerToMove == p1 else p1
+        else:
+            print(playerToMove.getName()+" moves from "+util.toUserCoord(*move.getStart())
+                + " to " + util.toUserCoord(*move.getEnd()))
 
-        print(playerToMove.getName()+" moves from "+util.toUserCoord(*move.getStart())
-              + " to " + util.toUserCoord(*move.getEnd()))
+            state, battleInfo = state.nextState(move)
+            if len(battleInfo) > 0:
+                print(battleInfo[0] + " attacks " + battleInfo[1])
+                if battleInfo[1] == "F":
+                    winner = playerToMove
 
-        state, battleInfo = state.nextState(move)
-        if len(battleInfo) > 0:
-            print(battleInfo[0] + " attacks " + battleInfo[1])
-            if battleInfo[1] == "F":
-                winner = playerToMove
+    print("Game Over! " + winner.getName() + " wins!")
 
-    print("Game Over!")
-
-playGame(Player.Human("Player"), Player.AI("AI"), False)
+playGame(Player.AI("AI1"), Player.AI("AI2"), True)
 """
 if i % 2 == 0:
     state.show(False)

@@ -28,6 +28,9 @@ class GameState:
 
         else:
             self._board = board
+    
+    def getBoard(self):
+        return self._board
 
     def show(self, all=False, color=True):
 
