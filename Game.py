@@ -2,7 +2,7 @@ import GameState as gs
 import Player
 import util
 
-def playGame(p0, p1, spectate):
+def playGame(p0, p1, spectate, quiet=False):
     # If spectate is on, show board for all player's turns
     # If spectate is off, show board for Human players, don't show board for AIs
     # This is where we include game-over logic, etc
@@ -22,12 +22,14 @@ def playGame(p0, p1, spectate):
         if move is None:
             winner = p0 if playerToMove == p1 else p1
         else:
-            print(playerToMove.getName()+" moves from "+util.toUserCoord(*move.getStart())
-                + " to " + util.toUserCoord(*move.getEnd()))
+            if not quiet:
+                print(playerToMove.getName()+" moves from "+util.toUserCoord(*move.getStart())
+                    + " to " + util.toUserCoord(*move.getEnd()))
 
             state, battleInfo = state.nextState(move)
             if len(battleInfo) > 0:
-                print(battleInfo[0] + " attacks " + battleInfo[1])
+                if not quiet:
+                    print(battleInfo[0] + " attacks " + battleInfo[1])
                 if battleInfo[1] == "F":
                     winner = playerToMove
 

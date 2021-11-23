@@ -16,6 +16,7 @@ The following are all optional command line arguments:
   -a, --ai              Whether to play 2 AIs against each other(instead of default play against AI)
   -s, --spectate        Whether to watch(print out board) during play between AIs
   -p NAME, --name NAME  Set the name of Player(default 'User')
+  -q, --quiet           Only output result of games, not moves
 ```
 
 ## Setup
