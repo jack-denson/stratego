@@ -2,7 +2,7 @@ import GameState as gs
 import Player
 import util
 
-def playGame(p0, p1, spectate, quiet=False):
+def playGame(p0, p1, spectate, quiet=False, seeBelief=False):
     # If spectate is on, show board for all player's turns
     # If spectate is off, show board for Human players, don't show board for AIs
     # This is where we include game-over logic, etc
@@ -16,6 +16,8 @@ def playGame(p0, p1, spectate, quiet=False):
             # If we're watching this game, print it out. If there are more than 0 human players, it will be printed
             #  out automatically by the select move logic
             state.show(spectate)
+        if seeBelief:
+            p0._belief.printBelief()
 
         playerToMove = state.currentPlayer()
         move = playerToMove.chooseMove(state)
@@ -32,6 +34,10 @@ def playGame(p0, p1, spectate, quiet=False):
                     print(battleInfo[0] + " attacks " + battleInfo[1])
                 if battleInfo[1] == "F":
                     winner = playerToMove
+            
+            p1.observeMove(playerToMove, move, battleInfo)
+            p0.observeMove(playerToMove, move, battleInfo)
+
 
     print("Game Over! " + winner.getName() + " wins!")
     return winner.getName()

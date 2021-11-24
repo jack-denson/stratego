@@ -53,3 +53,28 @@ def randomMove(state):
         return None
     move = random.choice(moves)
     return move
+
+def sumOfDist(dist):
+    sum = 0
+    for i in dist:
+        sum += dist[i]
+    return sum
+
+def beats(s1, s2):
+    # Whether rank s1 beats rank s2
+    if s2 == 'F':
+        return True
+    if s2 == 'B':
+        return s1 == '8'
+    if s2 == 'S' and s1 == "1":
+        return False
+    if s2 == "1" and s1 == 'S':
+        return True
+    if s1 == 'B':
+        return s2 != '8'
+    if s1 == 'F':
+        return False
+    types = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'S']
+    # In case that ranks are equal, returns False, because it doesn't beat the opponent
+    #  in the game, that means both are removed, which is logic implemented in game, not here
+    return types.index(s1) < types.index(s2)

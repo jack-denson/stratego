@@ -8,6 +8,7 @@ parser.add_argument('-a', '--ai', action='store_true', help='Whether to play 2 A
 parser.add_argument('-s', '--spectate', action='store_true', help='Whether to watch(print out board) during play between AIs')
 parser.add_argument('-p', '--name', default="User", help='Set the name of Player(default \'User\')')
 parser.add_argument('-q', '--quiet', action='store_true', help='Only output result of games, not moves')
+parser.add_argument('-b', '--belief', action='store_true', help='See belief of AI(useful for debugging)')
 
 
 args = parser.parse_args()
@@ -21,7 +22,7 @@ for i in range(args.num_games[0]):
     else:
         p2 = Player.Human(args.name)
 
-    winner = Game.playGame(p1, p2, args.spectate, args.quiet)
+    winner = Game.playGame(p1, p2, args.spectate, args.quiet, args.belief)
 
     if winner == p1.getName():
         p1Wins += 1

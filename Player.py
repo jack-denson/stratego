@@ -1,6 +1,7 @@
 import util
 import random
 import Move
+import BoardBelief
 
 class Player:
     pass
@@ -8,7 +9,7 @@ class Player:
 class AI(Player):
     def __init__(self, name):
         self._name = name
-        pass
+        self._belief = None
 
     def setPieces(self):
         # Long-term goal: get some logic in here for placing pieces in reasonable/strategic places
@@ -18,7 +19,12 @@ class AI(Player):
         random.shuffle(pieces)
         return [pieces[0:10], pieces[10:20], pieces[20:30], pieces[30:40]]
 
-    def observeMove(self, oldState, move, newState):
+    def initState(self, state):
+        #Called when state is intitialized
+        self._belief = BoardBelief.BoardBelief(state, self)
+
+    def observeMove(self, player, move, battleInfo):
+        self._belief.observeMove(player, move, battleInfo)
         return
         # Watches opponent move, updates internal state to react to this
         # Should NOT access opponent's piece ranks
@@ -40,6 +46,9 @@ class Human(Player):
 
     def getName(self):
         return self._name
+    
+    def initState(self, state):
+        return
 
     def setPieces(self):
         # Prompts user to set up pieces, or to select preset(e.g. 'random')
@@ -54,7 +63,7 @@ class Human(Player):
         else:
             return util.setupFromString(self, config)
 
-    def observeMove(self, oldState, move, newState):
+    def observeMove(self, move, battleInfo):
         return
         # Should be a no-op, player is observing move themselves
 

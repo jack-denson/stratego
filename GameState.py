@@ -26,6 +26,9 @@ class GameState:
                     self._board[3-i][9-j] = p0Pieces[i][j]
                     self._board[6 + i][j] = p1Pieces[i][j]
 
+            self._players[0].initState(self)
+            self._players[1].initState(self)
+
         else:
             self._board = board
     
