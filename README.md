@@ -17,6 +17,7 @@ The following are all optional command line arguments:
   -s, --spectate        Whether to watch(print out board) during play between AIs
   -p NAME, --name NAME  Set the name of Player(default 'User')
   -q, --quiet           Only output result of games, not moves
+  -b, --belief          See belief of AI(useful for debugging)
 ```
 
 ## Setup
