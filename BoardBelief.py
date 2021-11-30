@@ -44,13 +44,12 @@ class BoardBelief:
         for pieceBelief in self._opPieces:
             pieceBelief.updateFromRemaing(self._opUnaccounted)
 
-    def printBelief(self):
+    def printBelief(self, color=True):
         print(" ", end="")
         for letter in " ABCDEFGHIJ":
             print(" " + letter + " |", end="")
         print("\n     "+("_"*40))
         # 0 is blue, 1 is red
-        color = True
         endcode = '' if not color else '\033[0m'
         for i in range(0, 10):
             print("| "+str(i)+" |", end="")

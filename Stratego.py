@@ -9,6 +9,7 @@ parser.add_argument('-s', '--spectate', action='store_true', help='Whether to wa
 parser.add_argument('-p', '--name', default="User", help='Set the name of Player(default \'User\')')
 parser.add_argument('-q', '--quiet', action='store_true', help='Only output result of games, not moves')
 parser.add_argument('-b', '--belief', action='store_true', help='See belief of AI(useful for debugging)')
+parser.add_argument('-c', '--colorless', action='store_true', help='Deactivate colored terminal(for terminals that don\'t support color codes)')
 
 
 args = parser.parse_args()
@@ -22,7 +23,7 @@ for i in range(args.num_games[0]):
     else:
         p2 = Player.Human(args.name)
 
-    winner = Game.playGame(p1, p2, args.spectate, args.quiet, args.belief)
+    winner = Game.playGame(p1, p2, args.spectate, quiet=args.quiet, seeBelief=args.belief, color=(not args.colorless))
 
     if winner == p1.getName():
         p1Wins += 1

@@ -18,6 +18,7 @@ The following are all optional command line arguments:
   -p NAME, --name NAME  Set the name of Player(default 'User')
   -q, --quiet           Only output result of games, not moves
   -b, --belief          See belief of AI(useful for debugging)
+  -c, --colorless       Deactivate colored terminal(for terminals that don't support color codes)
 ```
 
 ## Setup
