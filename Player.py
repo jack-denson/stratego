@@ -63,7 +63,7 @@ class Human(Player):
         else:
             return util.setupFromString(self, config)
 
-    def observeMove(self, move, battleInfo):
+    def observeMove(self, player, move, battleInfo):
         return
         # Should be a no-op, player is observing move themselves
 
