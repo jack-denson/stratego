@@ -1,4 +1,6 @@
 import PieceBelief
+import Piece
+import GameState
 import util
 # A belief for an entire board, that is, a probability distribution for each opponent's piece
 class BoardBelief:
@@ -43,6 +45,22 @@ class BoardBelief:
     def updateFromRemaining(self):
         for pieceBelief in self._opPieces:
             pieceBelief.updateFromRemaing(self._opUnaccounted)
+
+    def toGameState(self):
+        # Returns what we beleive(each piece is what's most likely) as a GameState
+        gsBoard = [[None for i in range(10)] for j in range(10)]
+        for i in range(len(self._board)):
+            for j in range(len(self._board[i])):
+                if self._board[i][j] is None or self._board[i][j] == "W":
+                    gsBoard[i][j] = self._board[i][j]
+                elif self._board[i][j].isPiece():
+                    gsBoard[i][j] = self._board[i][j].copy()
+                else:
+                    # Most likely, instead of sampled, for no particular reason. May be a parameter in the future
+                    gsBoard[i][j] = Piece.Piece(gsBoard[i][j].mostLikely(), None)
+        
+        return GameState.GameState(board=gsBoard, players=[self._player, None], turn=0)
+
 
     def printBelief(self, color=True):
         print(" ", end="")

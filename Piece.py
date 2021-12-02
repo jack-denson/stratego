@@ -37,6 +37,9 @@ class Piece:
 
     def canMove(self):
         return self._type != "B" and self._type != "F"
+    
+    def isPiece(self):
+        return True
 
     def beats(self, other):
         otherType = other.getType()

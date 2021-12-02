@@ -38,6 +38,9 @@ class PieceBelief:
             sum += self.belief[i]
         
         return sum
+
+    def isPiece(self):
+        return False
     
     def mostLikely(self):
         likely = '1'

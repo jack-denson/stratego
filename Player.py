@@ -2,6 +2,7 @@ import util
 import random
 import Move
 import BoardBelief
+import Minimax
 
 class Player:
     pass
@@ -33,6 +34,9 @@ class AI(Player):
         return self._name
 
     def chooseMove(self, state):
+        believedState = self._belief.toGameState()
+        minimaxer = Minimax.MinimaxAgent(believedState)
+
         return util.randomMove(state)
 
     def isHuman(self):

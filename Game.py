@@ -17,7 +17,7 @@ def playGame(p0, p1, spectate, quiet=False, seeBelief=False, color=True):
             #  out automatically by the select move logic
             state.show(spectate, color=color)
         if seeBelief:
-            p0._belief.printBelief()
+            p0._belief.printBelief(color=color)
 
         playerToMove = state.currentPlayer()
         move = playerToMove.chooseMove(state)
