@@ -57,9 +57,9 @@ class BoardBelief:
                     gsBoard[i][j] = self._board[i][j].copy()
                 else:
                     # Most likely, instead of sampled, for no particular reason. May be a parameter in the future
-                    gsBoard[i][j] = Piece.Piece(gsBoard[i][j].mostLikely(), None)
-        
-        return GameState.GameState(board=gsBoard, players=[self._player, None], turn=0)
+                    gsBoard[i][j] = Piece.Piece(self._board[i][j].mostLikely(), None)
+        a = GameState.GameState(board=gsBoard, players=[self._player, None], turn=0)
+        return a
 
 
     def printBelief(self, color=True):

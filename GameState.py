@@ -1,8 +1,8 @@
-import Player
 import Move
+import Player
 
 class GameState:
-    def __init__(self, board=None, players=[Player.AI("Blue"), Player.AI("Red")], turn=0):
+    def __init__(self, board=None, players=[None, None], turn=0):
         self._players = players
         self._turn = turn
 
@@ -30,7 +30,7 @@ class GameState:
             self._players[1].initState(self)
 
         else:
-            self._board = board
+            self._board = [[(board[i][j] if board[i][j] == "W" or board[i][j] is None else board[i][j].copy()) for j in range(10)] for i in range(10)]
     
     def getBoard(self):
         return self._board
@@ -65,6 +65,9 @@ class GameState:
 
     def currentPlayer(self):
         return self._players[self._turn]
+
+    def getPlayer(self, playerNum):
+        return self._players[playerNum]
 
     def getValidMoves(self):
         # Returns all valid moves for a state

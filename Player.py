@@ -36,8 +36,8 @@ class AI(Player):
     def chooseMove(self, state):
         believedState = self._belief.toGameState()
         minimaxer = Minimax.MinimaxAgent(believedState)
-
-        return util.randomMove(state)
+        a = minimaxer.getMove()
+        return a
 
     def isHuman(self):
         return False
