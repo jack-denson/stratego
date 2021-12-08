@@ -1,6 +1,7 @@
 import argparse
 import Player
 import Game
+import Evaluators
 
 parser = argparse.ArgumentParser(description='Play any number of Stratego games with an AI')
 parser.add_argument('-n', '--num-games', type=int, nargs=1, default=[1], help="The number of games to play")
@@ -10,16 +11,18 @@ parser.add_argument('-p', '--name', default="User", help='Set the name of Player
 parser.add_argument('-q', '--quiet', action='store_true', help='Only output result of games, not moves')
 parser.add_argument('-b', '--belief', action='store_true', help='See belief of AI(useful for debugging)')
 parser.add_argument('-c', '--colorless', action='store_true', help='Deactivate colored terminal(for terminals that don\'t support color codes)')
+parser.add_argument('-e', '--evals', nargs=2, default=[None, None], help='Evaluation function for AI agents')
 
+#To test that minimax makes a difference, we need options for evaluators
 
 args = parser.parse_args()
 p1Wins = 0
 p2Wins = 0
 
 for i in range(args.num_games[0]):
-    p1 = Player.AI("AI Player 1")
+    p1 = Player.AI("AI Player 1", evaluator=Evaluators.evalMap[args.evals[0]])
     if args.ai:
-        p2 = Player.AI("AI Player 2")
+        p2 = Player.AI("AI Player 2", evaluator=Evaluators.evalMap[args.evals[1]])
     else:
         p2 = Player.Human(args.name)
 

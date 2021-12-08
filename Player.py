@@ -8,9 +8,10 @@ class Player:
     pass
 
 class AI(Player):
-    def __init__(self, name):
+    def __init__(self, name, evaluator=None):
         self._name = name
         self._belief = None
+        self._evaluator=evaluator
 
     def setPieces(self):
         # Long-term goal: get some logic in here for placing pieces in reasonable/strategic places
@@ -35,9 +36,13 @@ class AI(Player):
 
     def chooseMove(self, state):
         believedState = self._belief.toGameState()
-        minimaxer = Minimax.MinimaxAgent(believedState)
-        a = minimaxer.getMove()
-        return a
+        if self._evaluator is not None:
+            minimaxer = Minimax.MinimaxAgent(believedState, eval=self._evaluator)
+        else:
+            minimaxer = Minimax.MinimaxAgent(believedState)
+        
+        return minimaxer.getMove()
+        
 
     def isHuman(self):
         return False
