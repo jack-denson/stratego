@@ -40,9 +40,9 @@ class AI(Player):
     def chooseMove(self, state):
         believedState = self._belief.toGameState()
         if self._evaluator is not None:
-            minimaxer = Minimax.MinimaxAgent(believedState, eval=self._evaluator)
+            minimaxer = Minimax.MinimaxAgent(believedState, self, eval=self._evaluator)
         else:
-            minimaxer = Minimax.MinimaxAgent(believedState)
+            minimaxer = Minimax.MinimaxAgent(believedState, self)
         
         return minimaxer.getMove()
         

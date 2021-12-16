@@ -78,3 +78,13 @@ def beats(s1, s2):
     # In case that ranks are equal, returns False, because it doesn't beat the opponent
     #  in the game, that means both are removed, which is logic implemented in game, not here
     return types.index(s1) < types.index(s2)
+
+def manhattan(p1, p2):
+    return abs(p1[1] - p2[1]) + abs(p1[0] - p2[0]) 
+
+def mean(list):
+    sum = 0
+    for i in list:
+        sum += i
+    
+    return sum / len(list)

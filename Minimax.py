@@ -7,23 +7,24 @@ MAXDEPTH = 2
 DEFAULTEVAL = Evaluators.numEnemies
 
 class MinimaxAgent:
-    def __init__(self, stateBelief, eval=DEFAULTEVAL, maxdepth=MAXDEPTH):
+    def __init__(self, stateBelief, player, eval=DEFAULTEVAL, maxdepth=MAXDEPTH):
         # Takes what the AI believes the board is as a state
         self._state = stateBelief
         self._eval = eval
         self._maxdepth = maxdepth
+        self._player = player
     
     def getMove(self):
         return self.runMinimax(self._state, 0, "max")[0]
     
     def runMinimax(self, board, depth, minOrMax):
         if depth == self._maxdepth:
-            return None, self._eval(board, minOrMax=minOrMax)
+            return None, self._eval(board, self._player, minOrMax=minOrMax)
         else:
             moves = board.getValidMoves()
             if len(moves) == 0:
                 # Special lose case
-                return None, self._eval(None, result="LOSE", minOrMax=minOrMax)
+                return None, self._eval(None, self._player, result="LOSE", minOrMax=minOrMax)
             moveEvals = []
 
             for move in moves:
