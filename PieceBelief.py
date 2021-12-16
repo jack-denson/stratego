@@ -95,3 +95,19 @@ class PieceBelief:
             self.belief[poss] = (remainingIfEq[certPiece] / util.sumOfDist(remainingIfEq)) * self.belief[poss]
         
         self.normalize()
+    
+    def couldBeBF(self):
+        return self.belief["B"] > 0 or self.belief["F"] > 0
+    
+    def updateProbFromMotion(self, numMoved, unaccBombs):
+
+        if not self.isCertain:
+            pIsStationary = unaccBombs / (40 - numMoved)
+            for poss in self.belief:
+                if poss == "F" or poss == "B":
+                    self.belief[poss] = self.belief[poss] * pIsStationary
+                else:
+                    self.belief[poss] = self.belief[poss] * (1 - pIsStationary)
+            
+
+            self.normalize()

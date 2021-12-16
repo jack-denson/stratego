@@ -23,6 +23,9 @@ class BoardBelief:
             'B': 6
         }
 
+        # All the pieces we've seen move
+        self._haveMoved = []
+
         # Pieces in play that we aren't 100% about
         self._opUnaccounted = self._opRemaining.copy()
 
@@ -78,7 +81,7 @@ class BoardBelief:
                     print(" W", end="")
                 elif isinstance(self._board[i][j], PieceBelief.PieceBelief):
                     colorcode = '' if not color else ('\033[31m')
-                    print(" " + colorcode + self._board[i][j].mostLikely() + endcode, end="")
+                    print(" " + colorcode + self._board[i][j].sample() + endcode, end="")
                 else:
                     colorcode = '' if not color else ('\033[94m')
                     print(" " + colorcode + self._board[i][j].getType() + endcode, end="")
@@ -122,5 +125,17 @@ class BoardBelief:
         else:
             r0, c0 = move.getStart()
             r1, c1 = move.getEnd()
+
+            if player != self._player:
+                movingPiece = self._board[r0][c0]
+                if movingPiece not in self._haveMoved:
+                    self._haveMoved.append(movingPiece)
+                    # Eliminates possibility of this piece being a bomb or a flag
+                    movingPiece.movable()
+
+                for p in self._opPieces:
+                    if p not in self._haveMoved:
+                        p.updateProbFromMotion(len(self._haveMoved), self._opUnaccounted["B"])
+
             self._board[r1][c1] = self._board[r0][c0]
             self._board[r0][c0] = None

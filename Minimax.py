@@ -3,6 +3,7 @@ import random
 
 # Default max depth
 MAXDEPTH = 2
+# Default evaluation function
 DEFAULTEVAL = Evaluators.numEnemies
 
 class MinimaxAgent:

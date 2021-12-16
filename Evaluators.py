@@ -43,6 +43,24 @@ def numFlags(state, result="CONTINUE", minOrMax="max"):
     else:
         return -1*totalFlags
 
+def flagsAndBombs(state, result="CONTINUE", minOrMax="max"):
+    if result == "LOSE":
+        return -40 if minOrMax=="max" else 40
+    """if minOrMax == "max":
+        opponent = state.getPlayer(1)
+    else:
+        assert(minOrMax == "min")
+        opponent = state.getPlayer(0)"""
+    minimizer = state.getPlayer(1)
+    
+    board = state.getBoard()
+    totalFnB = 0
+    for i in range(10):
+        for j in range(10):
+            if not (board[i][j] is None or board[i][j] == "W" or board[i][j].getPlayer() != minimizer):
+                totalFnB += 1 if (board[i][j].getType() == "F" or board[i][j].getType() == "B") else 0
+    
+    return -1 * totalFnB
 
 # Corresponds to "take random move, all states are the same"
 def nullEval(state, result="CONTINUE", minOrMax="max"):
@@ -55,4 +73,6 @@ evalMap = {"numEnemies": numEnemies,
             "nullEval": nullEval,
             "flags": numFlags, 
             "numFlags": numFlags, 
+            "fnb": flagsAndBombs,
+            "flagsAndBombs": flagsAndBombs,
             None: None}

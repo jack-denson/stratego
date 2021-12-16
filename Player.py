@@ -17,9 +17,12 @@ class AI(Player):
         # Long-term goal: get some logic in here for placing pieces in reasonable/strategic places
         # Realistic/short-term goal: place randomly, or semi-randomly(i.e. random, but knows to put flag in back)
         # Current behavior: completely random setup, nothing smart or strategic done at all
-        pieces = util.startPieces(self)
-        random.shuffle(pieces)
-        return [pieces[0:10], pieces[10:20], pieces[20:30], pieces[30:40]]
+
+        #pieces = util.startPieces(self)
+        #random.shuffle(pieces)
+        #return [pieces[0:10], pieces[10:20], pieces[20:30], pieces[30:40]]
+
+        return util.wikipediaSetup(self)
 
     def initState(self, state):
         #Called when state is intitialized
