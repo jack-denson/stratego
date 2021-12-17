@@ -52,4 +52,4 @@ to move this piece to.
 Pieces can move based on rules described [here](https://en.wikipedia.org/wiki/Stratego), and capture each other based on
 rules also described there.
 
-AI agent will move randomly, which will change very soon. Behavior of AI agents is located in [Player.py](Player.py)
+Behavior of AI agents is located in [Player.py](Player.py)
