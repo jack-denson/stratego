@@ -19,8 +19,19 @@ The following are all optional command line arguments:
   -q, --quiet           Only output result of games, not moves
   -b, --belief          See belief of AI(useful for debugging)
   -c, --colorless       Deactivate colored terminal(for terminals that don't support color codes)
+  -e EVALS EVALS, --evals EVALS EVALS
+                        Evaluation function for AI agents(only works when -a flag is also used)
 ```
 
+The evaluation functions are as follows - not all of them are fully tested out:
+```
+numEnemies: by number of enemy pieces
+null | none | nullEval: always return 0(choose random move)
+flags | numFlags: eval by number of expected flags
+fnb | flagsAndBombs: eval by number of expected flags, plus number expected bombs
+targetBombs | bombs: eval by how close miners are to enemy bombs, plus number of each of those piece types
+forward | fwd | justMoveForward: eval by piece y location(for some reason, only works for blue, not red)
+```
 ## Setup
 
 When the game starts, it is necessary to place all 40 game pieces in any configuration on the game board.
